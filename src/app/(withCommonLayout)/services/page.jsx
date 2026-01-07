@@ -19,6 +19,10 @@ const getAllServices = async (searchParams = "") => {
   const data = await res.json();
   return data;
 };
+export const metadata = {
+  title: "Services",
+  description: "Car Washing Service",
+};
 const ServicesPage = async ({ searchParams }) => {
   const getParams = await searchParams;
   console.log(getParams);

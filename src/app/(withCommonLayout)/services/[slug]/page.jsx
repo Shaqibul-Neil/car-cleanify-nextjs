@@ -21,7 +21,7 @@ const getSingleService = async (id) => {
 const ServiceDetailsPage = async ({ params }) => {
   const { slug } = await params;
   const service = await getSingleService(slug);
-  console.log(service);
+  //console.log(service);
   if (!service) {
     return <div className="py-20 text-center">Service not found</div>;
   }

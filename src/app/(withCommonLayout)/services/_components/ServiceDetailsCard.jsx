@@ -1,5 +1,6 @@
 import { Clock, Star, CheckCircle } from "lucide-react";
 import Image from "next/image";
+import BookingButton from "./BookingButton";
 
 const ServiceDetailsCard = ({ service }) => {
   return (
@@ -78,18 +79,8 @@ const ServiceDetailsCard = ({ service }) => {
                 Safe & Eco-Friendly Products
               </li>
             </ul>
-            <button
-              className="
-              w-full mt-6 rounded-xl
-              bg-blue-600 hover:bg-blue-800
-              text-white font-medium
-              py-3 transition-colors
-            "
-            >
-              Get This Service
-            </button>
 
-            {/* <BookingBtn service={service} /> */}
+            <BookingButton service={service} />
           </div>
         </div>
       </div>

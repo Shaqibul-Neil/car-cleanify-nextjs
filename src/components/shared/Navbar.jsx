@@ -1,8 +1,13 @@
+"use client";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import Container from "./Container";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 const Navbar = () => {
+  const { user } = useContext(UserContext);
+  //console.log(user);
   return (
     <div className="h-20 bg-blue-800 ">
       <Container>
@@ -21,19 +26,26 @@ const Navbar = () => {
               </h2>
             </div>
           </Link>
-          <ul className="flex gap-4 w-84">
+          <ul className="flex gap-4">
             <Link href={"/"}>Home</Link>
             <Link href={"/aboutus"}>About us</Link>
             <Link href={"/services"}>Services</Link>
             <Link href={"/reviews"}>Reviews</Link>
+            {user && <Link href={"/dashboard"}>Dashboard</Link>}
           </ul>
           <div>
-            <Link
-              className="bg-white text-blue-600 rounded-3xl py-2 px-4"
-              href={"/login"}
-            >
-              Sign In
-            </Link>
+            {!user ? (
+              <Link
+                className="bg-white text-blue-600 rounded-3xl py-2 px-4"
+                href={"/login"}
+              >
+                Sign In
+              </Link>
+            ) : (
+              <button className="bg-white text-blue-600 rounded-3xl py-2 px-4">
+                Log out
+              </button>
+            )}
           </div>
         </div>
       </Container>
