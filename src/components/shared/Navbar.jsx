@@ -3,11 +3,10 @@ import Link from "next/link";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import Container from "./Container";
-import { useContext } from "react";
-import { UserContext } from "@/context/userContext";
+import { signIn, signOut, useSession } from "next-auth/react";
 const Navbar = () => {
-  const { user } = useContext(UserContext);
-  //console.log(user);
+  const session = useSession();
+  console.log(session);
   return (
     <div className="h-20 bg-blue-800 ">
       <Container>
@@ -29,22 +28,42 @@ const Navbar = () => {
           <ul className="flex gap-4">
             <Link href={"/"}>Home</Link>
             <Link href={"/aboutus"}>About us</Link>
+            <Link href={"/adminRoute"}>Admin</Link>
+            <Link href={"/userRoute"}>User</Link>
             <Link href={"/services"}>Services</Link>
             <Link href={"/reviews"}>Reviews</Link>
-            {user && <Link href={"/dashboard"}>Dashboard</Link>}
+            {session?.data?.user && <Link href={"/dashboard"}>Dashboard</Link>}
           </ul>
           <div>
-            {!user ? (
-              <Link
-                className="bg-white text-blue-600 rounded-3xl py-2 px-4"
-                href={"/login"}
-              >
-                Sign In
-              </Link>
+            {session.status === "loading" ? (
+              "Loading"
             ) : (
-              <button className="bg-white text-blue-600 rounded-3xl py-2 px-4">
-                Log out
-              </button>
+              <>
+                {!session?.data?.user ? (
+                  <>
+                    {" "}
+                    <Link
+                      className="bg-white text-blue-600 rounded-3xl py-2 px-4"
+                      href={"/register"}
+                    >
+                      Sign up
+                    </Link>
+                    <button
+                      className="bg-white text-blue-600 rounded-3xl py-2 px-4"
+                      onClick={() => signIn()}
+                    >
+                      Sign In
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="bg-white text-blue-600 rounded-3xl py-2 px-4"
+                    onClick={() => signOut()}
+                  >
+                    Log out
+                  </button>
+                )}
+              </>
             )}
           </div>
         </div>

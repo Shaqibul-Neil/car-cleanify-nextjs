@@ -1,11 +1,15 @@
+"use client";
 import { BookingContextProvider } from "@/context/bookingContext";
 import { UserContextProvider } from "@/context/userContext";
+import { SessionProvider } from "next-auth/react";
 
 const Providers = ({ children }) => {
   return (
-    <UserContextProvider>
-      <BookingContextProvider>{children}</BookingContextProvider>
-    </UserContextProvider>
+    <SessionProvider>
+      <UserContextProvider>
+        <BookingContextProvider>{children}</BookingContextProvider>
+      </UserContextProvider>{" "}
+    </SessionProvider>
   );
 };
 

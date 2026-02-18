@@ -10,7 +10,10 @@ export const getAllReviews = async (searchParams) => {
       //cache: "no-store", //by default
       cache: "force-cache", //cache krbe
       //or
-      next: { tags: ["reviews"] },
+      next: {
+        tags: ["reviews"],
+        revalidate: 120, //ISR
+      },
     },
   );
 
